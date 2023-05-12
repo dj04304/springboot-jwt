@@ -2,9 +2,11 @@ package com.jun.springsecurity1.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.jun.springsecurity1.model.User;
 
@@ -18,14 +20,25 @@ import com.jun.springsecurity1.model.User;
 // Authentication 안에있는 UserDetails를 꺼내야 함
 // PrincipalDetails === UserDetails
 
-public class PrincipalDetail implements UserDetails{
+public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	private User user; // 콤포지션
 	
-	public PrincipalDetail(User user) {
+	public PrincipalDetails(User user) {
 		this.user = user;
 		
 	}
+	
+	@Override
+	public Map<String, Object> getAttributes() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
 
 	//해당 User의 권한을 리턴하는 곳
 	@Override
@@ -39,6 +52,10 @@ public class PrincipalDetail implements UserDetails{
 		});
 		
 		return collect;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 
 	@Override
@@ -74,5 +91,8 @@ public class PrincipalDetail implements UserDetails{
 		
 		return true;
 	}
+
+	
+	
 
 }
