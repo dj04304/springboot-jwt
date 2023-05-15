@@ -23,6 +23,7 @@ public class PrincipalDetailsService implements UserDetailsService{
 	//파라미터를 바꾸고싶으면 Security Config builder에서 바꾸면 되지만 그냥 username쓰자
 	
 	// Security session(내부 Authentication(내부 UserDetails))
+	// @AuthenicationPrincipal 어노테이션이 만들어진다.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("username" + username);

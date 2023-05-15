@@ -22,16 +22,30 @@ import com.jun.springsecurity1.model.User;
 
 public class PrincipalDetails implements UserDetails, OAuth2User{
 	
-	private User user; // 콤포지션
+	private static final long serialVersionUID = 1L;
 	
+	private User user; // 콤포지션
+	private Map<String, Object> attributes;
+	
+	public User getUser() {
+		return user;
+	}
+	
+	// 일반로그인 할 때 사용하는 생성자
 	public PrincipalDetails(User user) {
 		this.user = user;
+		
+	}
+	// OAuth 로그인을 할 때 사용하는 생성자
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
 		
 	}
 	
 	@Override
 	public Map<String, Object> getAttributes() {
-		return null;
+		return attributes;
 	}
 
 	@Override
@@ -54,10 +68,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 		return collect;
 	}
 	
-	public User getUser() {
-		return user;
-	}
-
 	@Override
 	public String getPassword() {
 		return user.getPassword();
@@ -91,8 +101,5 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 		
 		return true;
 	}
-
-	
-	
 
 }
